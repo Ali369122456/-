@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简记 · 个人记账</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#"><span class="brand-mark">简</span><span>简记<span class="brand-sub">PERSONAL FINANCE</span></span></a>
+      <div class="today" id="todayLabel"></div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div><p class="eyebrow">YOUR MONEY, CLEARLY</p><h1>每一笔收支，<span>都值得记录。</span></h1><p class="intro-copy">简单记录日常，让每一份收入和支出都清晰可见。</p></div>
+        <div class="intro-icon" aria-hidden="true">✳</div>
+      </section>
+
+      <section class="summary-grid" aria-label="收支概览">
+        <article class="summary-card balance-card"><div class="card-label">当前结余 <span>↗</span></div><div class="summary-value" id="balance">¥0.00</div><div class="card-foot">收入 − 支出</div></article>
+        <article class="summary-card"><div class="card-label"><span class="dot income-dot"></span>总收入</div><div class="summary-value income-text" id="totalIncome">¥0.00</div><div class="card-foot">累计所有收入</div></article>
+        <article class="summary-card"><div class="card-label"><span class="dot expense-dot"></span>总支出</div><div class="summary-value expense-text" id="totalExpense">¥0.00</div><div class="card-foot">累计所有支出</div></article>
+      </section>
+
+      <section class="content-grid">
+        <section class="panel form-panel">
+          <div class="panel-heading"><div><p class="eyebrow">NEW TRANSACTION</p><h2>记一笔</h2></div><span class="heading-icon">＋</span></div>
+          <form id="entryForm">
+            <div class="type-switch" role="group" aria-label="收支类型">
+              <button type="button" class="type-btn active expense-active" data-type="expense">支出</button>
+              <button type="button" class="type-btn" data-type="income">收入</button>
+            </div>
+            <input type="hidden" id="type" value="expense">
+            <label for="amount">金额</label>
+            <div class="amount-wrap"><span>¥</span><input id="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required></div>
+            <div class="field-row">
+              <div class="field"><label for="category">分类</label><select id="category"></select></div>
+              <div class="field"><label for="date">日期</label><input id="date" type="date" required></div>
+            </div>
+            <label for="note">备注 <span class="optional">选填</span></label>
+            <input id="note" type="text" maxlength="60" placeholder="例如：午餐、交通费……">
+            <button class="submit-btn" type="submit">保存这笔记录 <span>→</span></button>
+            <p class="privacy-note">🔒 数据仅保存在当前浏览器中</p>
+            <p class="form-message" id="formMessage" role="status"></p>
+          </form>
+        </section>
+
+        <section class="panel history-panel">
+          <div class="history-heading"><div><p class="eyebrow">TRANSACTION HISTORY</p><h2>历史记录</h2></div><span class="record-count" id="recordCount">0 笔记录</span></div>
+          <div class="filter-bar">
+            <input id="search" type="search" placeholder="搜索备注或分类…" aria-label="搜索记录">
+            <select id="typeFilter" aria-label="按收支筛选"><option value="all">全部类型</option><option value="expense">仅支出</option><option value="income">仅收入</option></select>
+            <input id="monthFilter" type="month" aria-label="按月份筛选">
+          </div>
+          <div id="historyList" class="history-list"></div>
+          <div id="emptyState" class="empty-state"><div class="empty-art">✎</div><strong>还没有记账记录</strong><p>从左边添加第一笔收支吧。</p></div>
+          <div class="history-footer"><span id="visibleCount">显示 0 笔</span><button id="clearFilters" type="button">清除筛选</button></div>
+        </section>
+      </section>
+      <footer>简记 · 把生活账目，理得清清楚楚 <span>数据保存在你的设备本地</span></footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
